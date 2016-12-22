@@ -54,22 +54,31 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextKeys.cs" />
+    <Compile Include="DefaultSerializer.cs" />
     <Compile Include="Exceptions\CouldNotFindDbContextException.cs" />
     <Compile Include="Exceptions\DeletingDetachedEntityException.cs" />
     <Compile Include="Exceptions\UpdatingDetachedEntityException.cs" />
     <Compile Include="Exceptions\SagaDbSetMissingException.cs" />
     <Compile Include="Interfaces\INServiceBusDbContext.cs" />
     <Compile Include="Interfaces\INServiceBusDbContextFactory.cs" />
+    <Compile Include="Interfaces\IOutboxDbContext.cs" />
     <Compile Include="Interfaces\ISagaDbContext.cs" />
     <Compile Include="Interfaces\ISubscriptionDbContext.cs" />
     <Compile Include="Interfaces\ITimeoutDbContext.cs" />
     <Compile Include="InternalsVisibleTo.cs" />
+    <Compile Include="Outbox\EntityFrameworkOutboxStorageFeature.cs" />
+    <Compile Include="Outbox\OutboxCleaner.cs" />
+    <Compile Include="Outbox\OutboxEntity.cs" />
+    <Compile Include="Outbox\OutboxOperation.cs" />
+    <Compile Include="Outbox\OutboxPersister.cs" />
     <Compile Include="SagaStorage\EntityFrameworkSagaStorageFeature.cs" />
     <Compile Include="SagaStorage\SagaPersister.cs" />
     <Compile Include="SharedDbContext\CreateDbContextBehavior.cs" />

@@ -38,13 +38,6 @@ namespace UnitTests
     public class EntityFrameworkPersistenceTests
     {
         [Fact]
-        public void DoesNotSupportOutbox()
-        {
-            var obj = new EntityFrameworkPersistence();
-            obj.HasSupportFor<StorageType.Outbox>().Should().BeFalse();
-        }
-
-        [Fact]
         public void SupportsSagas()
         {
             var obj = new EntityFrameworkPersistence();
@@ -64,5 +57,13 @@ namespace UnitTests
             var obj = new EntityFrameworkPersistence();
             obj.HasSupportFor<StorageType.Timeouts>().Should().BeTrue();
         }
+
+        [Fact]
+        public void SupportsOutbox()
+        {
+            var obj = new EntityFrameworkPersistence();
+            obj.HasSupportFor<StorageType.Outbox>().Should().BeTrue();
+        }
+
     }
 }

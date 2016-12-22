@@ -20,5 +20,10 @@ namespace AcceptanceTests
         {
             return new TestDbContext();
         }
+
+        public IOutboxDbContext CreateOutboxDbContext()
+        {
+            return new TestDbContext();
+        }
     }
 }

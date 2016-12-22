@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using System.Linq;
 using GoodlyFere.NServiceBus.EntityFramework.Interfaces;
+using GoodlyFere.NServiceBus.EntityFramework.Outbox;
 using GoodlyFere.NServiceBus.EntityFramework.TimeoutStorage;
 using Moq;
 using NServiceBus;
@@ -39,6 +40,26 @@ using Xunit;
 
 namespace UnitTests.TimeoutStorage
 {
+    public class OutboxPersisterTests
+    {
+        private readonly TestDbContext _dbContext;
+        private readonly Mock<INServiceBusDbContextFactory> _mockFactory;
+        private readonly OutboxPersister _persister;
+
+        public OutboxPersisterTests()
+        {
+            _dbContext = new TestDbContext();
+
+            _mockFactory = new Mock<INServiceBusDbContextFactory>();
+            _mockFactory.Setup(m => m.CreateTimeoutDbContext()).Returns(new TestDbContext());
+
+            _persister = new OutboxPersister(_mockFactory.Object);
+
+            _dbContext.OutboxRecords.RemoveRange(_dbContext.OutboxRecords);
+            _dbContext.SaveChanges();
+        }  
+    }
+
     public class TimeoutPersisterTests
     {
         private readonly TestDbContext _dbContext;

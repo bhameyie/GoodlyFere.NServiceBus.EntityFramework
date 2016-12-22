@@ -68,6 +68,16 @@
         }
     }
 
+    public class AllTransportsWithoutNativeDeferral : AllTransports
+    {
+        public AllTransportsWithoutNativeDeferral()
+        {
+            AllTransportsFilter.Run(t => !t.HasSupportForCentralizedPubSub, Remove);
+            //AllTransportsFilter.Run(t=> t.HasNativePubSubSupport, Remove);
+        }
+    }
+
+
     public class MsmqOnly : ScenarioDescriptor
     {
         public MsmqOnly()

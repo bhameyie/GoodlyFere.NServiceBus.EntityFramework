@@ -5,6 +5,7 @@ using System.Data.Entity.Core.Objects.DataClasses;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using GoodlyFere.NServiceBus.EntityFramework.Interfaces;
+using GoodlyFere.NServiceBus.EntityFramework.Outbox;
 using GoodlyFere.NServiceBus.EntityFramework.SharedDbContext;
 using GoodlyFere.NServiceBus.EntityFramework.SubscriptionStorage;
 using GoodlyFere.NServiceBus.EntityFramework.TimeoutStorage;
@@ -12,7 +13,7 @@ using NServiceBus.Saga;
 
 namespace AcceptanceTests
 {
-    public class TestDbContext : ISubscriptionDbContext, ITimeoutDbContext, ISagaDbContext
+    public class TestDbContext : ISubscriptionDbContext, ITimeoutDbContext, ISagaDbContext, IOutboxDbContext
     {
         private readonly TestBaseDbContext _baseDbContext;
         private readonly Dictionary<Type, DbContext> _dbContexts;
@@ -149,6 +150,12 @@ namespace AcceptanceTests
             }
         }
 
+        public DbSet<OutboxEntity> OutboxRecords
+        {
+            get { return _baseDbContext.OutboxRecords; }
+            set { _baseDbContext.OutboxRecords = value; }
+        }
+
         private static Type GetRealEntityType(object saga)
         {
             Type sagaType = saga.GetType();
@@ -167,6 +174,7 @@ namespace AcceptanceTests
         {
             return typeof(IContainSagaData).IsAssignableFrom(entityType);
         }
+
     }
 
     public class TestBaseDbContext : NServiceBusDbContext

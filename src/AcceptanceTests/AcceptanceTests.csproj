@@ -11,6 +11,8 @@
     <AssemblyName>AcceptanceTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -196,6 +198,12 @@
     <Compile Include="App_Packages\NSB.AcceptanceTests.5.2.14\PubSub\When_publishing_with_only_local_messagehandlers.cs" />
     <Compile Include="App_Packages\NSB.AcceptanceTests.5.2.14\PubSub\When_publishing_with_overridden_local_address.cs" />
     <Compile Include="App_Packages\NSB.AcceptanceTests.5.2.14\PubSub\When_subscribing_to_a_polymorphic_event.cs" />
+    <Compile Include="App_Packages\NSB.AcceptanceTests.5.2.14\SimulatedException.cs" />
+    <Compile Include="App_Packages\NSB.AcceptanceTests.5.2.14\Reliability\Outbox\When_a_duplicate_message_arrives.cs" />
+    <Compile Include="App_Packages\NSB.AcceptanceTests.5.2.14\Reliability\Outbox\When_blowing_up_just_after_dispatch.cs" />
+    <Compile Include="App_Packages\NSB.AcceptanceTests.5.2.14\Reliability\Outbox\When_dispatching_forwarded_messages.cs" />
+    <Compile Include="App_Packages\NSB.AcceptanceTests.5.2.14\Reliability\Outbox\When_receiving_a_message.cs" />
+    <Compile Include="App_Packages\NSB.AcceptanceTests.5.2.14\Reliability\Outbox\When_sending_from_a_non_dtc_endpoint.cs" />
     <Compile Include="App_Packages\NSB.AcceptanceTests.5.2.14\Retries\When_doing_flr_with_default_settings.cs" />
     <Compile Include="App_Packages\NSB.AcceptanceTests.5.2.14\Retries\When_doing_flr_with_dtc_on.cs" />
     <Compile Include="App_Packages\NSB.AcceptanceTests.5.2.14\Retries\When_doing_flr_with_native_transactions.cs" />
@@ -277,6 +285,13 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

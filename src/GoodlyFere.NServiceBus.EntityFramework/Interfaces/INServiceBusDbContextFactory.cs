@@ -38,5 +38,7 @@ namespace GoodlyFere.NServiceBus.EntityFramework.Interfaces
         ISubscriptionDbContext CreateSubscriptionDbContext();
 
         ITimeoutDbContext CreateTimeoutDbContext();
+
+        IOutboxDbContext CreateOutboxDbContext();
     }
 }

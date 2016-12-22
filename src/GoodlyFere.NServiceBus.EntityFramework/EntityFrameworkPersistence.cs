@@ -26,6 +26,7 @@
 
 using System;
 using System.Linq;
+using GoodlyFere.NServiceBus.EntityFramework.Outbox;
 using GoodlyFere.NServiceBus.EntityFramework.SagaStorage;
 using GoodlyFere.NServiceBus.EntityFramework.SharedDbContext;
 using GoodlyFere.NServiceBus.EntityFramework.SubscriptionStorage;
@@ -62,6 +63,13 @@ namespace GoodlyFere.NServiceBus.EntityFramework
             Supports<StorageType.Timeouts>(SetupTimeoutSettings);
             Supports<StorageType.Subscriptions>(SetupSubscriptionSettings);
             Supports<StorageType.Sagas>(SetupSagasSettings);
+            Supports<StorageType.Outbox>(SetupOutboxSettings);
+        }
+
+        private void SetupOutboxSettings(SettingsHolder s)
+        {
+            Logger.Debug("Enabling EntityFramework outbox storage");
+            s.EnableFeatureByDefault<EntityFrameworkOutboxStorageFeature>();
         }
 
         private void SetupSagasSettings(SettingsHolder s)

@@ -100,6 +100,7 @@
     <Compile Include="TestDbContext.cs" />
     <Compile Include="Support\CombGuidTests.cs" />
     <Compile Include="Support\SerializeHelperTests.cs" />
+    <Compile Include="OutboxStorage\EntityFrameworkOutboxStorageTests.cs" />
     <Compile Include="TimeoutStorage\EntityFrameworkTimeoutStorageTests.cs" />
     <Compile Include="TimeoutStorage\TimeoutPersisterTests.cs" />
   </ItemGroup>
